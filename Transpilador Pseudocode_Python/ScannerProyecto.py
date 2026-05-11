@@ -54,19 +54,28 @@ class Scanner:
     def _procesar_linea(self, texto):
         # Aquí usamos expresiones regulares para identificar tus tokens
         patrones = [
+            (TokenType.LIT_CADENA, r'"[^"]*"'),
             (TokenType.LIT_FLOTANTE, r'\d+\.\d+'),
             (TokenType.LIT_ENTERO, r'\d+'),
-            (TokenType.ID, r'[a-zA-Z_][a-zA-Z0-9_]*'),
-            (TokenType.LIT_CADENA, r'"[^"]*"'),
             (TokenType.OP_IGUAL, r'=='),
+            (TokenType.OP_DIFERENTE, r'!='),
+            (TokenType.OP_MAYOR_IG, r'>='),
+            (TokenType.OP_MENOR_IG, r'<='),
             (TokenType.OP_ASIGNACION, r'='),
+            (TokenType.OP_MAYOR, r'>'),
+            (TokenType.OP_MENOR, r'<'),
             (TokenType.OP_SUMA, r'\+'),
             (TokenType.OP_RESTA, r'-'),
             (TokenType.OP_MULT, r'\*'),
             (TokenType.OP_DIV, r'/'),
+            (TokenType.OP_MODULO, r'%'),
             (TokenType.DEL_PAREN_IZQ, r'\('),
             (TokenType.DEL_PAREN_DER, r'\)'),
+            (TokenType.DEL_CORCH_IZQ, r'\['),
+            (TokenType.DEL_CORCH_DER, r'\]'),
             (TokenType.DEL_COMA, r','),
+            # Identificadores: Letra/guion seguido de letras/números
+            (TokenType.ID, r'[a-zA-Z_][a-zA-Z0-9_]*')
         ]
 
         cursor = 0

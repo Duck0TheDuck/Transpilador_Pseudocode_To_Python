@@ -1,5 +1,4 @@
-import sys
-from  import Scanner
+from ScannerProyecto import Scanner
 
 class Main:
     @staticmethod
