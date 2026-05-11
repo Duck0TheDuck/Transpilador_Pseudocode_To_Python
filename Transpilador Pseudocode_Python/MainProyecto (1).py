@@ -1,5 +1,6 @@
 from ScannerProyecto import Scanner
 
+
 class Main:
     @staticmethod
     def ejecutar():
