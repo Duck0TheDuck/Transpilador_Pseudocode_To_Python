@@ -102,6 +102,12 @@ class Scanner:
                     break
 
             if not match_found:
-                # Manejo de errores solicitado
-                print(f"Error Léxico: Símbolo desconocido '{texto[cursor]}' en línea {self.linea}")
+                # Se reporta la línea y columna exacta del error
+                columna_error = cursor + 1
+                simbolo = texto[cursor]
+                print(f"Error Léxico: Símbolo desconocido '{simbolo}' en línea {self.linea}, columna {columna_error}")
+
+                # Se añade a la lista de tokens para que el Parser o el sistema lo detecte
+                self.tokens.append(Token(TokenType.TOKEN_ERROR, simbolo, self.linea, columna_error, cursor))
+
                 cursor += 1
