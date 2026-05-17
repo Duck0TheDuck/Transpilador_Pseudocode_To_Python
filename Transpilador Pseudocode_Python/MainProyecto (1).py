@@ -9,7 +9,7 @@ class Main:
 inicio
     imprimir("Iniciando prueba del scanner")
     leer(numero)
-    
+
     funcion calcular_valor(x, y)
         si x >= 10.5
             retornar x * y
@@ -17,16 +17,16 @@ inicio
             retornar 0
         sino
             retornar x % 2
-            
+
     resultado = calcular_valor(5, numero)
-    
+
     mientras resultado != 100
         resultado = resultado + 1
-        
+
     lista = [1, 2, 3]
-    
+
     @
-    
+
     imprimir("Fin de la prueba")
 fin
 """
