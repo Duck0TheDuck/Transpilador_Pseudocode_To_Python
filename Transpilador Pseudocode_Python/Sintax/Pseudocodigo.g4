@@ -12,6 +12,8 @@ instruccion : imprimir_stat
             | declaracion_funcion
             | llamada_funcion_stat
             | si_stat
+            | mientras_stat
+            | para_stat
             | retornar_stat ;
 
 imprimir_stat : KW_IMPRIMIR DEL_PAREN_IZQ expresion DEL_PAREN_DER ;
@@ -30,13 +32,17 @@ si_stat : KW_SI expresion KW_ENTONCES instruccion*
           (KW_SINO instruccion*)?
           KW_FIN_SI ;
 
+// Reglas para los ciclos
+mientras_stat : KW_MIENTRAS expresion instruccion* KW_FIN_MIENTRAS ;
+para_stat     : KW_PARA ID KW_EN expresion instruccion* KW_FIN_PARA ;
+
 // Jerarquía de operaciones matemáticas y lógicas (usando TUS tokens)
 expresion : expresion (OP_MULT | OP_DIV | OP_MODULO) expresion                     # ExprMultDivMod
           | expresion (OP_SUMA | OP_RESTA) expresion                               # ExprSumaResta
           | expresion (OP_MAYOR_IG | OP_MENOR_IG | OP_MAYOR | OP_MENOR | OP_IGUAL | OP_DIFERENTE) expresion # ExprRelacional
           | DEL_PAREN_IZQ expresion DEL_PAREN_DER                                  # ExprParen
           | ID DEL_PAREN_IZQ argumentos? DEL_PAREN_DER                             # ExprLlamadaFunc
-          | ID DEL_CORCH_IZQ expresion DEL_CORCH_DER                               # ExprArreglo // Agregado para usar tus corchetes
+          | ID DEL_CORCH_IZQ expresion DEL_CORCH_DER                               # ExprArreglo
           | ID                                                                     # ExprId
           | LIT_ENTERO                                                             # ExprEntero
           | LIT_FLOTANTE                                                           # ExprFlotante
@@ -47,7 +53,7 @@ expresion : expresion (OP_MULT | OP_DIV | OP_MODULO) expresion                  
 // REGLAS LÉXICAS (LEXER/TOKENS) - Mayúsculas
 // ==========================================
 
-// 1. PALABRAS RESERVADAS (Deben ir antes del ID)
+// 1. PALABRAS RESERVADAS
 KW_INICIO      : 'inicio' ;
 KW_FIN         : 'fin' ;
 KW_IMPRIMIR    : 'imprimir' ;
@@ -60,6 +66,11 @@ KW_ENTONCES    : 'entonces' ;
 KW_SINO_SI     : 'sino_si' ;
 KW_SINO        : 'sino' ;
 KW_FIN_SI      : 'fin_si' ;
+KW_MIENTRAS    : 'mientras' ;
+KW_FIN_MIENTRAS: 'fin_mientras' ;
+KW_PARA        : 'para' ;
+KW_FIN_PARA    : 'fin_para' ;
+KW_EN          : 'en' ;
 
 // 2. LA LISTA EXACTA DE TUS TOKENS
 LIT_CADENA     : '"' ~["]* '"' ;
